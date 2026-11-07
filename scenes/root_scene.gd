@@ -25,7 +25,7 @@ func transition_to(scene_path: String) -> void:
 
 	if status != ResourceLoader.THREAD_LOAD_LOADED:
 		push_error(
-			"bad argument #0 to 'RootScene.transition_to' (scene '%s' failed to load )" % scene_path,
+			"bad argument #0 to 'RootScene.transition_to' (scene '%s' failed to load)" % scene_path,
 		)
 
 		return
