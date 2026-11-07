@@ -1,3 +1,4 @@
+class_name NetworkManager
 extends Node
 
 # CHANGE TO SERVER'S TAILSCALE IP BEFORE USE
