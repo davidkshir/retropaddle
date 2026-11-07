@@ -42,18 +42,14 @@ func manager_ready() -> void:
 
 
 func _on_peer_connected(id: int) -> void:
-	var player = Player.new(id)
-
-	RootScene.instance.lobby_manager.add_player(player)
+	RootScene.instance.lobby_manager.add_player(id)
 	print("Player client id '%s' id")
 
 
 func _on_peer_disconnected(id: int) -> void:
-	var player = RootScene.instance.lobby_manager.get_player_from_id(id)
-
-	if not player:
+	if not RootScene.instance.lobby_manager.has_player(id):
 		print("Non-player client id %s disconnected" % id)
 		return
 
-	RootScene.instance.lobby_manager.remove_player(player)
+	RootScene.instance.lobby_manager.remove_player(id)
 	print("Player client id '%s' connected" % id)

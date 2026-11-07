@@ -5,36 +5,50 @@ signal player_added(player: Player)
 
 signal player_removed(player: Player)
 
-var _players: Dictionary[Player, bool]
-
 var players: Array[Player]:
 	get:
-		return _players.values()
+		return get_children().filter(
+			func(node):
+				return node is Player,
+		)
 
 
-func add_player(player: Player) -> void:
-	if player not in _players:
-		_players[player] = true
+func _format_player_node_name(id: int) -> StringName:
+	return &"Player%s" % id
 
-		player_added.emit(player)
+
+func add_player(id: int) -> Player:
+	assert(
+		has_player(id),
+		"bad argument #0 to 'LobbyManager.add_player' (peer id '%s' is already a player)",
+	)
+
+	var player = Player.new(id)
+
+	add_child(player)
+	player_added.emit(player)
+
+	return player
 
 
 func get_player_from_id(id: int) -> Player:
-	for player in _players:
-		if player.id == id:
-			return player
+	var node_name = _format_player_node_name(id)
 
-	return null
+	return get_node(node_name)
 
 
-func has_player(player: Player) -> bool:
-	return player in _players
+func has_player(id: int) -> bool:
+	var node_name = _format_player_node_name(id)
+
+	return has_node(node_name)
 
 
-func remove_player(player: Player) -> bool:
-	var did_remove = _players.erase(player)
+func remove_player(id: int) -> void:
+	var player = get_player_from_id(id)
 
-	if did_remove:
-		player_removed.emit(player)
+	assert(
+		not player,
+		"bad argument #0 to 'LobbyManager.remove_player' (peer id '%s' is not a player)",
+	)
 
-	return did_remove
+	player_removed.emit(player)
