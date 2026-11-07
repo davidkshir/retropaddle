@@ -2,25 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://be0oavmxlx2em" path="res://addons/pocketar/ar_view.tscn" id="1_feb5d"]
 [ext_resource type="PackedScene" uid="uid://c4qgf3rrtvfpe" path="res://nodes/paddle.tscn" id="2_e2o6t"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kh0q7"]
-friction = 0.0
-bounce = 1.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_kh0q7"]
-size = Vector3(2, 0.03, 4)
-
-[sub_resource type="BoxMesh" id="BoxMesh_4lefe"]
-size = Vector3(0.03, 2, 4)
-
-[sub_resource type="BoxMesh" id="BoxMesh_pe5hr"]
-size = Vector3(0.03, 2, 4)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_pe5hr"]
-size = Vector3(2, 0.03, 4)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_dksfx"]
-size = Vector3(0.03, 2, 4)
+[ext_resource type="PackedScene" uid="uid://churypx3uhfns" path="res://nodes/barrier_walls.tscn" id="2_feb5d"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_80nbo"]
 friction = 0.0
@@ -38,40 +20,7 @@ radius = 0.15
 [node name="ARView" parent="." unique_id=1008093009 instance=ExtResource("1_feb5d")]
 visible = false
 
-[node name="Walls" type="Node3D" parent="." unique_id=1254642297]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Walls" unique_id=716112924]
-physics_material_override = SubResource("PhysicsMaterial_kh0q7")
-
-[node name="Roof" type="MeshInstance3D" parent="Walls/StaticBody3D" unique_id=789479851]
-mesh = SubResource("BoxMesh_kh0q7")
-
-[node name="Floor" type="MeshInstance3D" parent="Walls/StaticBody3D" unique_id=341609080]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-mesh = SubResource("BoxMesh_kh0q7")
-
-[node name="Right Wall" type="MeshInstance3D" parent="Walls/StaticBody3D" unique_id=620112361]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
-mesh = SubResource("BoxMesh_4lefe")
-
-[node name="Left Wall" type="MeshInstance3D" parent="Walls/StaticBody3D" unique_id=1189283951]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
-mesh = SubResource("BoxMesh_pe5hr")
-
-[node name="Roof Collsion" type="CollisionShape3D" parent="Walls/StaticBody3D" unique_id=1492783803]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-shape = SubResource("BoxShape3D_pe5hr")
-
-[node name="Floor Collision" type="CollisionShape3D" parent="Walls/StaticBody3D" unique_id=2027194078]
-shape = SubResource("BoxShape3D_pe5hr")
-
-[node name="Right Wall Collision" type="CollisionShape3D" parent="Walls/StaticBody3D" unique_id=1458300411]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
-shape = SubResource("BoxShape3D_dksfx")
-
-[node name="Left Wall Collision" type="CollisionShape3D" parent="Walls/StaticBody3D" unique_id=1972847693]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
-shape = SubResource("BoxShape3D_dksfx")
+[node name="BarrierWalls" parent="." unique_id=1445083270 instance=ExtResource("2_feb5d")]
 
 [node name="Ball" type="Node3D" parent="." unique_id=1354277287]
 
