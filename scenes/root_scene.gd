@@ -5,7 +5,7 @@ extends Node
 
 @onready var lobby_manager: LobbyManager = %LobbyManager
 
-@onready var network_manager: NetworkManager = %LobbyManager
+@onready var network_manager: NetworkManager = %NetworkManager
 
 static var instance: RootScene:
 	get:
