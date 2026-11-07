@@ -19,6 +19,14 @@ func add_player(player: Player) -> void:
 		player_added.emit(player)
 
 
+func get_player_from_id(id: int) -> Player:
+	for player in _players:
+		if player.id == id:
+			return player
+
+	return null
+
+
 func has_player(player: Player) -> bool:
 	return player in _players
 
