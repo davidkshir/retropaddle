@@ -1,11 +1,40 @@
 extends Node
 
+@onready var ar_view = $ARView
+@onready var player: Player = get_parent()
+const SERVER_ID: int = 1
 
-# Called when the node enters the scene tree for the first time.
+var ar_position: Vector2 = Vector2.ZERO
+
+var paddle: Paddle
+
+
 func _ready() -> void:
-	pass # Replace with function body.
+	if multiplayer.is_server():
+		return
+
+	if OS.has_feature("ios"):
+		ar_view.Backend.ARKIT
+	else:
+		ar_view.Backend.ARCORE
+
+	var battlefield_scene: Node3D = RootScene.instance.get_node("ContentScene").get_child(0)
+	paddle = battlefield_scene.get_node("Paddle1")
+
+	if not paddle:
+		paddle = battlefield_scene.get_node("Paddle2")
+
+	paddle.player = player
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func _physics_process(_delta: float) -> void:
+	if multiplayer.is_server():
+		return
+
+	if ar_view.applied_packet == null:
+		return
+
+
+@rpc("any_peer", "unreliable")
+func _set_coordinates(position: Vector2) -> void:
+	paddle.ar_position = position
