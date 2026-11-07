@@ -36,4 +36,5 @@ void fragment() {
 
 	ALBEDO = line_color.rgb;
 	ALPHA = is_line * mask * line_color.a;
+	EMISSION = line_color.rgb * 1.5;
 }
