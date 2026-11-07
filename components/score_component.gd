@@ -1,7 +1,7 @@
 class_name ScoreComponent
 extends ObservableComponent
 
-@export() var score: float:
+@export() var score: int:
 	get:
 		return _value
 	set(value):
