@@ -3,7 +3,7 @@ extends Node
 
 @onready var content_scene: Node = %ContentScene
 
-@onready var lobby_manager: Node = %LobbyManager
+@onready var lobby_manager: LobbyManager = %LobbyManager
 
 static var instance: RootScene:
 	get:
