@@ -35,8 +35,7 @@ func _ready() -> void:
 
 		# Creates signal for clients connecting
 		multiplayer.peer_connected.connect(_on_peer_connected)
-
-		multiplayer.peer_disconnected.disconnect(_on_peer_disconnected)
+		multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
 		multiplayer.multiplayer_peer = peer
 
