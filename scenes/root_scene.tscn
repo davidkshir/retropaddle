@@ -13,5 +13,5 @@ unique_name_in_owner = true
 [node name="ContentScene" type="Node" parent="." unique_id=167327846]
 unique_name_in_owner = true
 
-[node name="Network Manager" parent="." unique_id=1972815278 instance=ExtResource("3_sfakk")]
+[node name="NetworkManager" parent="." unique_id=1972815278 instance=ExtResource("3_sfakk")]
 unique_name_in_owner = true
