@@ -9,8 +9,8 @@ enum WinStates {
 	STATE_WIN,
 }
 
-var loser: Player = null
+var loser_id: int = -1
 
 var win_state: WinStates = WinStates.STATE_NONE
 
-var winner: Player = null
+var winner_id: int = -1
