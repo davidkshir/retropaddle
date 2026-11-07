@@ -108,24 +108,11 @@ jobs:
 
       - name: Check GDScript Files
         run: |
-          # gdscript-formatter does _not_ tell us what is wrong with the file's
-          # format or _even what the failed file's name is_. ;-;
-          #
-          # Oh, and it does not support glob patterns.
-          #
-          # So, manual looping and file name printing~!
-          find . -name "*.gd" -not -path "./addons/*" | while read -r file; do
-            echo "Checking: $file"
-
-            if ! gdscript-formatter --check "$file"; then
-              echo "::error file=$file::Formatting failed on this file."
-              exit 1
-            fi
-          done
+          gdscript-formatter --check ./
 
       - name: Lint GDScript Files
         run: |
-          find . -name "*.gd" -not -path "./addons/*" | xargs gdscript-formatter lint --pretty
+          gdscript-formatter link ./
 
       - name: Generate ClassDB
         run: |
