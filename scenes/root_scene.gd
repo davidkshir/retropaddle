@@ -14,6 +14,10 @@ static var instance: RootScene:
 		return scene_tree.current_scene
 
 
+func _ready() -> void:
+	network_manager.manager_ready()
+
+
 func transition_to(scene_path: String) -> void:
 	ResourceLoader.load_threaded_request(scene_path)
 
