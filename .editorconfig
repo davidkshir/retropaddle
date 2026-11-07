@@ -6,3 +6,7 @@ charset = utf-8
 [*.gd]
 gdscript_formatter_format_on_save = true
 gdscript_formatter_lint_on_save = true
+
+[addons/**.gd]
+gdscript_formatter_exclude = true
+

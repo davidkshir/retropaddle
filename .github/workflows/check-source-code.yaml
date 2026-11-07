@@ -1,0 +1,130 @@
+name: Check Source Code
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_call:
+
+env:
+  BIN_PATH: "${{ github.workspace }}/tools/bin"
+  CHECKSUM_GDSCRIPT_FORMATTER: "c59a96c0de55f98568945eb60c91de6d20e994545cb36145425ec1558174de04"
+  CHECKSUM_GODOT: "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4"
+  GDSCRIPT_FORMATTER_VERSION: "0.28.0"
+  GODOT_VERSION: "4.7.2"
+
+jobs:
+  install-gdscript-formatter:
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions/download-verify-extract-cache-archive
+
+      - name: Install GDScript Formatter
+        id: gdscript-formatter-cache
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://github.com/GDQuest/GDScript-formatter/releases/download/${{ env.GDSCRIPT_FORMATTER_VERSION }}/gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}-linux-x86_64.zip"
+          checksum: ${{ env.CHECKSUM_GDSCRIPT_FORMATTER }}
+          archive-type: zip
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}
+
+      - name: Rename GDScript Formatter Binary
+        if: steps.gdscript-formatter-cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ env.BIN_PATH }}/gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}-linux-x86_64 ${{ env.BIN_PATH }}/gdscript-formatter
+
+      - name: Setup File Permissions
+        if: steps.gdscript-formatter-cache.outputs.cache-hit != 'true'
+        run: |
+          chmod +x ${{ env.BIN_PATH }}/gdscript-formatter
+
+  install-godot:
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions/download-verify-extract-cache-archive
+
+      - name: Install Godot
+        id: godot-cache
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip"
+          checksum: ${{ env.CHECKSUM_GODOT }}
+          archive-type: zip
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}
+
+      - name: Rename Godot Binary
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ env.BIN_PATH }}/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 ${{ env.BIN_PATH }}/godot
+
+      - name: Setup File Permissions
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        run: |
+          chmod +x ${{ env.BIN_PATH }}/godot
+
+  check:
+    needs: [install-gdscript-formatter, install-godot]
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Restore Installed GDScript Formatter
+        uses: ./.github/actions/restore-cached-archive
+        with:
+          checksum: ${{ env.CHECKSUM_GDSCRIPT_FORMATTER }}
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}
+
+      - name: Restore Installed Godot
+        uses: ./.github/actions/restore-cached-archive
+        with:
+          checksum: ${{ env.CHECKSUM_GODOT }}
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}
+
+      - name: Add Bin Path to PATH
+        run: |
+          echo "${{ env.BIN_PATH }}" >> $GITHUB_PATH
+
+      - name: GDScript Formatter Version
+        run: |
+          gdscript-formatter --version
+
+      - name: Godot Version
+        run: |
+          godot --version
+
+      - name: Check GDScript Files
+        run: |
+          gdscript-formatter --check ./
+
+      - name: Lint GDScript Files
+        run: |
+          gdscript-formatter link ./
+
+      - name: Generate ClassDB
+        run: |
+          godot --headless --editor --quit
+
+      - name: Type Check GDScript Files
+        run: |
+          find . -name "*.gd" -not -path "./addons/*" | while read -r file; do
+            echo "Type checking: $file"
+
+            if ! godot --headless --check-only --script "$file"; then
+              echo "::error file=$file::Type checking failed on this file."
+              exit 1
+            fi
+          done
