@@ -12,6 +12,7 @@ extends ObservableComponent
 			"bad mutation to 'RoundComponent.round' (value '%d' is greater than max round '%d')"
 			% [value, max_round],
 		)
+
 		assert(value < 1, "bad mutation to 'RoundComponent.round' (value '%d' is less than '1')")
 
 		_value = value
