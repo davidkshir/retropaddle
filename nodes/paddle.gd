@@ -1,5 +1,5 @@
 class_name Paddle
-extends AnimatableBody3D
+extends Node3D
 
 var _player: Player = null
 
@@ -11,6 +11,8 @@ var player: Player:
 		_player = value
 
 		_player_changed(old_player, value)
+
+@onready var animatable_body_3d: AnimatableBody3D = %AnimatableBody3D
 
 @onready var camera_3d: Camera3D = %Camera3D
 
@@ -26,4 +28,4 @@ func _player_changed(_old_player: Player, new_player: Player) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	pass
+	pass # do movement w/ `animatable_body_3d`
