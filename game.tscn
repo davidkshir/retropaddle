@@ -92,19 +92,19 @@ shape = SubResource("BoxShape3D_dksfx")
 
 [node name="Ball" type="Node3D" parent="." unique_id=1354277287]
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Ball" unique_id=461580627]
+[node name="RigidBall3D" type="RigidBody3D" parent="Ball" unique_id=461580627]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 physics_material_override = SubResource("PhysicsMaterial_80nbo")
 gravity_scale = 0.0
 linear_damp_mode = 1
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball/RigidBody3D" unique_id=2028462525]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball/RigidBall3D" unique_id=2028462525]
 mesh = SubResource("SphereMesh_ooxkd")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball/RigidBody3D" unique_id=1156729456]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball/RigidBall3D" unique_id=1156729456]
 shape = SubResource("SphereShape3D_ldcxq")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Ball/RigidBody3D" unique_id=614452322]
+[node name="OmniLight3D" type="OmniLight3D" parent="Ball/RigidBall3D" unique_id=614452322]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=395989490]
 transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, -0.11620426, 1.5421196, 2.6540098)
