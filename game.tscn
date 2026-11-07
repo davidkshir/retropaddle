@@ -1,21 +1,8 @@
 [gd_scene format=3 uid="uid://cyuhulta0gems"]
 
 [ext_resource type="PackedScene" path="res://addons/pocketar/ar_view.tscn" id="1_feb5d"]
-[ext_resource type="PackedScene" uid="uid://c4qgf3rrtvfpe" path="res://nodes/paddle.tscn" id="2_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://churypx3uhfns" path="res://nodes/barrier_walls.tscn" id="2_feb5d"]
-[ext_resource type="PackedScene" uid="uid://dngasovthuntg" path="res://nodes/ball.tscn" id="3_fc0e3"]
 
 [node name="Game" type="Node3D" unique_id=765276773]
 
 [node name="ARView" parent="." unique_id=1008093009 instance=ExtResource("1_feb5d")]
 visible = false
-
-[node name="BarrierWalls" parent="." unique_id=1445083270 instance=ExtResource("2_feb5d")]
-
-[node name="Ball" parent="." unique_id=1192235307 instance=ExtResource("3_fc0e3")]
-
-[node name="Paddle1" parent="." unique_id=1784882359 instance=ExtResource("2_e2o6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
-
-[node name="Paddle2" parent="." unique_id=194719216 instance=ExtResource("2_e2o6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
