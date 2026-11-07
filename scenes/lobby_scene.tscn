@@ -1,3 +1,7 @@
 [gd_scene format=3 uid="uid://16lil2blm7h7"]
 
+[ext_resource type="PackedScene" uid="uid://cads8xbmmbnom" path="res://nodes/battlefield.tscn" id="1_yftba"]
+
 [node name="LobbyScene" type="Node3D" unique_id=1144864260]
+
+[node name="Battlefield" parent="." unique_id=1339524449 instance=ExtResource("1_yftba")]
