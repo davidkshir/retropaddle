@@ -19,6 +19,10 @@ func add_player(player: Player) -> void:
 		player_added.emit(player)
 
 
+func has_player(player: Player) -> bool:
+	return player in _players
+
+
 func remove_player(player: Player) -> bool:
 	var did_remove = _players.erase(player)
 
@@ -26,7 +30,3 @@ func remove_player(player: Player) -> bool:
 		player_removed.emit(player)
 
 	return did_remove
-
-
-func has_player(player: Player) -> bool:
-	return player in _players
