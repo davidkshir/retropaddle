@@ -45,7 +45,7 @@ func _on_peer_connected(id: int) -> void:
 	var player = Player.new(id)
 
 	RootScene.instance.lobby_manager.add_player(player)
-	print("Client connected: ", id)
+	print("Player client id '%s' id")
 
 
 func _on_peer_disconnected(id: int) -> void:
