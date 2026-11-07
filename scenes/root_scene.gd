@@ -5,6 +5,8 @@ extends Node
 
 @onready var lobby_manager: LobbyManager = %LobbyManager
 
+@onready var network_manager: NetworkManager = %LobbyManager
+
 static var instance: RootScene:
 	get:
 		var scene_tree = Engine.get_main_loop() as SceneTree
