@@ -112,7 +112,7 @@ jobs:
 
       - name: Lint GDScript Files
         run: |
-          gdscript-formatter link ./
+          gdscript-formatter lint ./
 
       - name: Generate ClassDB
         run: |
