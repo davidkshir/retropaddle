@@ -1,6 +1,7 @@
 extends Node
 
 @export var client_scene: PackedScene
+
 @export var server_scene: PackedScene
 
 
