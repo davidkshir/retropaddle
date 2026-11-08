@@ -47,11 +47,11 @@ func _player_added(player: Player) -> void:
 	var paddle = _get_available_paddle()
 
 	assert(
-		backplane_wall == null,
+		backplane_wall != null,
 		"bad dispatch to 'Battlefield._player_added' (no available 'BackplaneWall')",
 	)
 
-	assert(paddle == null, "bad dispatch to 'Battlefield._player_added' (no available 'Paddle')")
+	assert(paddle != null, "bad dispatch to 'Battlefield._player_added' (no available 'Paddle')")
 
 	backplane_wall.player = player
 	paddle.player = player
@@ -62,11 +62,11 @@ func _player_removed(player: Player) -> void:
 	var paddle = _get_matching_paddle(player)
 
 	assert(
-		backplane_wall == null,
+		backplane_wall != null,
 		"bad dispatch to 'Battlefield._player_removed' (no assigned 'BackplaneWall')",
 	)
 
-	assert(paddle == null, "bad dispatch to 'Battlefield._player_removed' (no assigned 'Paddle')")
+	assert(paddle != null, "bad dispatch to 'Battlefield._player_removed' (no assigned 'Paddle')")
 
 	backplane_wall.player = null
 	paddle.player = null
