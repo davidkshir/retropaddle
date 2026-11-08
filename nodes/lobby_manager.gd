@@ -50,8 +50,8 @@ func remove_player(id: int) -> void:
 	var player = get_player_from_id(id)
 
 	assert(
-		not player,
-		"bad argument #0 to 'LobbyManager.remove_player' (peer id '%s' is not a player)",
+		player != null,
+		"bad argument #0 to 'LobbyManager.remove_player' (peer id '%s' is not a player)" % id,
 	)
 
 	player_removed.emit(player)
