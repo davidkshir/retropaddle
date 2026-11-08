@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cads8xbmmbnom" path="res://nodes/battlefield.tscn" id="1_yftba"]
 [ext_resource type="PackedScene" uid="uid://byh64l7ovxsdy" path="res://ui/lobby_ui.tscn" id="3_d4cga"]
 [ext_resource type="Script" uid="uid://dk52har5o8pjn" path="res://scenes/pivot.gd" id="3_g76d4"]
+[ext_resource type="PackedScene" uid="uid://tbswgqcxr5k8" path="res://nodes/realm_spawner.tscn" id="3_qyrwf"]
 
 [node name="LobbyScene" type="Node3D" unique_id=1144864260]
 
@@ -16,4 +17,5 @@ script = ExtResource("3_g76d4")
 transform = Transform3D(-4.371139e-08, -0.42261827, 0.90630776, 0, 0.90630776, 0.42261827, -1, 1.8473232e-08, -3.961597e-08, 3, 2, 0)
 current = true
 
-[node name="LobbyUI" parent="." unique_id=534611682 instance=ExtResource("3_d4cga")]
+[node name="UIRealmSpawner" parent="." unique_id=632452808 instance=ExtResource("3_qyrwf")]
+server_scene = ExtResource("3_d4cga")
