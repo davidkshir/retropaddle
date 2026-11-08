@@ -1,0 +1,191 @@
+
+name: Build IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Download Godot
+        shell: bash
+        run: |
+          echo "Downloading Godot"
+
+          curl -fL -o godot.zip "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_macos.universal.zip"
+
+          echo "Godot successfully downloaded"
+
+      - name: Extract Godot
+        shell: bash
+        run: |
+          echo "Extracting Godot"
+
+          unzip godot.zip
+
+          echo "Godot successfully extracted"
+
+      - name: Configure Godot executable
+        shell: bash
+        run: |
+          echo "Configuring Godot executable"
+
+          GODOT_PATH="$PWD/Godot.app/Contents/MacOS/Godot"
+          test -f "$GODOT_PATH"
+          echo "GODOT=$GODOT_PATH" >> "$GITHUB_ENV"
+
+          echo "Godot executable configured"
+
+      - name: Download Godot Export Templates
+        shell: bash
+        run: |
+          echo "Downloading Godot export templates"
+
+          curl -fL -o templates.tpz "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz"
+
+          echo "Export templates successfully downloaded"
+
+      - name: Extract Godot Export Templates
+        shell: bash
+        run: |
+          echo "Extracting export templates"
+
+          unzip templates.tpz -d godot_templates
+
+          echo "Export templates successfully extracted"
+
+      - name: Install Godot Export Templates
+        shell: bash
+        run: |
+          echo "Installing Godot export templates"
+
+          TEMPLATE_DIR="$HOME/Library/Application Support/Godot/export_templates/4.7.2.stable"
+          mkdir -p "$TEMPLATE_DIR"
+          mv godot_templates/templates/* "$TEMPLATE_DIR/"
+
+          echo "Export templates successfully installed"
+
+      - name: Prepare iOS export configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("export_presets.cfg")
+          data = path.read_text()
+
+          old = 'application/app_store_team_id=""'
+          new = 'application/app_store_team_id="AAAAAAAAAA"'
+
+          if old not in data and new not in data:
+              raise RuntimeError("Team ID configuration not found!")
+
+          data = data.replace(old, new)
+          path.write_text(data)
+
+          assert new in path.read_text()
+
+          print("iOS export configuration prepared successfully!")
+          PY
+
+      - name: Import Godot Project
+        shell: bash
+        run: |
+          set -uo pipefail
+
+          echo "Importing Godot project"
+
+          set +e
+
+          "$GODOT" --headless \
+            --path . \
+            --editor \
+            --import \
+            --quit
+
+          EXIT_CODE=$?
+
+          set -e
+
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            echo "WARNING: Godot import exited with code $EXIT_CODE"
+
+            if [ ! -d ".godot/imported" ]; then
+              echo "ERROR: No imported assets found."
+              exit 1
+            fi
+
+            echo "Imported assets directory found."
+            echo "Continuing despite Godot import crash."
+          else
+            echo "Godot project successfully imported!"
+          fi
+
+      - name: Export iOS Xcode project
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p build
+
+          "$GODOT" --headless --path . \
+            --export-release "iOS" \
+            build/RetroPong3D.zip
+
+          test -d build/RetroPong3D.xcodeproj
+          echo "Xcode project generated!"
+
+      - name: Compile iOS app
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          xcodebuild \
+            -project build/RetroPong3D.xcodeproj \
+            -scheme RetroPong3D \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath "$PWD/build/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            buildhttps://github.com/davidkshir/retropaddle/pulse
+
+          echo "iOS app compiled successfully!"
+
+      - name: Package IPA
+        shell: bash
+        run: |
+          echo "Packaging iOS application"
+
+          APP=$(find build/DerivedData/Build/Products \
+            -maxdepth 2 -name "*.app" -type d | head -n 1)
+
+          if [ -z "$APP" ]; then
+            echo "ERROR: No compiled .app found!"
+            exit 1
+          fi
+
+          mkdir -p build/Payload
+          cp -R "$APP" build/Payload/
+
+          cd build
+          zip -qry RetroPong3D-unsigned.ipa Payload
+
+          echo "IPA successfully packaged"
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: RetroPong3D-iOS
+          path: build/RetroPong3D-unsigned.ipa
+          if-no-files-found: error
