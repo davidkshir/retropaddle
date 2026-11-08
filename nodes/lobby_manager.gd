@@ -27,6 +27,8 @@ func add_player(id: int) -> Player:
 	)
 
 	var player = Player.new(id)
+
+	player.id = id
 	player.name = _format_player_node_name(id)
 
 	add_child(player)
