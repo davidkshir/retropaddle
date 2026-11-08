@@ -4,13 +4,9 @@ extends ObservableComponent
 enum GameState {
 	STATE_NONE,
 
-	STATE_STARTED,
-
 	STATE_COUNTDOWN,
 
-	STATE_PRE_ROUND,
-
-	STATE_POST_ROUND,
+	STATE_PLAYING,
 
 	STATE_ENDED,
 }
