@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://byh64l7ovxsdy" path="res://scenes/LobbyUI.tscn" id="3_d4cga"]
 [ext_resource type="Script" uid="uid://dk52har5o8pjn" path="res://scenes/pivot.gd" id="3_g76d4"]
 [ext_resource type="FontFile" uid="uid://ddexdukijnwvp" path="res://addons/font/IBMPlexMono-Medium.ttf" id="4_d4cga"]
+[ext_resource type="Script" uid="uid://devhsmfys4aj4" path="res://scenes/center_container.gd" id="4_u8tpf"]
 [ext_resource type="Script" uid="uid://dn8puhulmyd0f" path="res://scenes/control.gd" id="5_qyrwf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyrwf"]
@@ -58,6 +59,7 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("4_u8tpf")
 
 [node name="PanelContainer" type="PanelContainer" parent="Control/CanvasLayer/CenterContainer" unique_id=372085973]
 layout_mode = 2
@@ -127,3 +129,5 @@ horizontal_alignment = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer" unique_id=779805754]
 layout_mode = 2
 theme_override_constants/separation = 10
+
+[connection signal="pressed" from="Control/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Button2" to="Control/CanvasLayer/CenterContainer" method="_on_quit_pressed"]
