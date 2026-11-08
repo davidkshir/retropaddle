@@ -10,6 +10,25 @@ extends Node3D
 @onready var paddle_2: Paddle = $Paddle2
 
 
+func _ready() -> void:
+	if not multiplayer.is_server():
+		return
+
+	RootScene.instance.lobby_manager.player_added.connect(_player_added)
+	RootScene.instance.lobby_manager.player_removed.connect(_player_removed)
+
+	for player in RootScene.instance.lobby_manager.players:
+		_player_added(player)
+
+
+func _exit_tree() -> void:
+	if not multiplayer.is_server():
+		return
+
+	RootScene.instance.lobby_manager.player_added.disconnect(_player_added)
+	RootScene.instance.lobby_manager.player_removed.disconnect(_player_removed)
+
+
 func _get_available_backplane_wall() -> BackplaneWall:
 	if backplane_wall_1.player == null:
 		return backplane_wall_1
@@ -70,22 +89,3 @@ func _player_removed(player: Player) -> void:
 
 	backplane_wall.player = null
 	paddle.player = null
-
-
-func _exit_tree() -> void:
-	if not multiplayer.is_server():
-		return
-
-	RootScene.instance.lobby_manager.player_added.disconnect(_player_added)
-	RootScene.instance.lobby_manager.player_removed.disconnect(_player_removed)
-
-
-func _ready() -> void:
-	if not multiplayer.is_server():
-		return
-
-	RootScene.instance.lobby_manager.player_added.connect(_player_added)
-	RootScene.instance.lobby_manager.player_removed.connect(_player_removed)
-
-	for player in RootScene.instance.lobby_manager.players:
-		_player_added(player)
