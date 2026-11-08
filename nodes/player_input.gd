@@ -1,3 +1,4 @@
+class_name PlayerInput
 extends Node
 
 @onready var ar_view = $ARView
