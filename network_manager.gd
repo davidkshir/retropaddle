@@ -46,5 +46,6 @@ func _on_peer_connected(id: int) -> void:
 	print("Client connected: ", id)
 
 
-func _on_peer_disconnected(_id: int) -> void:
-	pass
+func _on_peer_disconnected(id: int) -> void:
+	RootScene.instance.lobby_manager.remove_player(id)
+	print("Client disconnect: ", id)
