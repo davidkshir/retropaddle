@@ -32,32 +32,40 @@ func _exit_tree() -> void:
 func _get_available_backplane_wall() -> BackplaneWall:
 	if backplane_wall_1.player == null:
 		return backplane_wall_1
+
 	if backplane_wall_2.player == null:
 		return backplane_wall_2
+
 	return null
 
 
 func _get_matching_backplane_wall(player: Player) -> BackplaneWall:
 	if backplane_wall_1.player == player:
 		return backplane_wall_1
+
 	if backplane_wall_2.player == player:
 		return backplane_wall_2
+
 	return null
 
 
 func _get_available_paddle() -> Paddle:
 	if paddle_1.player == null:
 		return paddle_1
+
 	if paddle_2.player == null:
 		return paddle_2
+
 	return null
 
 
 func _get_matching_paddle(player: Player) -> Paddle:
 	if paddle_1.player == player:
 		return paddle_1
+
 	if paddle_2.player == player:
 		return paddle_2
+
 	return null
 
 
