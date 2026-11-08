@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://byh64l7ovxsdy" path="res://scenes/LobbyUI.tscn" id="3_d4cga"]
 [ext_resource type="Script" uid="uid://dk52har5o8pjn" path="res://scenes/pivot.gd" id="3_g76d4"]
 [ext_resource type="FontFile" uid="uid://ddexdukijnwvp" path="res://addons/font/IBMPlexMono-Medium.ttf" id="4_d4cga"]
+[ext_resource type="Script" uid="uid://c45ld1c4sgr4" path="res://scenes/lobby_ui.gd" id="4_i5c85"]
 [ext_resource type="Script" uid="uid://devhsmfys4aj4" path="res://scenes/center_container.gd" id="4_u8tpf"]
 [ext_resource type="Script" uid="uid://dn8puhulmyd0f" path="res://scenes/control.gd" id="5_qyrwf"]
 
@@ -50,6 +51,7 @@ current = true
 [node name="Control" parent="." unique_id=534611682 instance=ExtResource("3_d4cga")]
 offset_right = 0.0
 offset_bottom = 0.0
+script = ExtResource("4_i5c85")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Control" unique_id=306681729]
 
@@ -130,4 +132,5 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 10
 
+[connection signal="pressed" from="Control/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Button" to="Control/CanvasLayer/CenterContainer" method="_on_start_pressed"]
 [connection signal="pressed" from="Control/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Button2" to="Control/CanvasLayer/CenterContainer" method="_on_quit_pressed"]
