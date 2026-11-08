@@ -11,46 +11,34 @@ extends Node3D
 
 
 func _get_available_backplane_wall() -> BackplaneWall:
-	match null:
-		backplane_wall_1.player:
-			return backplane_wall_1
-
-		backplane_wall_2.player:
-			return backplane_wall_2
-
+	if backplane_wall_1.player == null:
+		return backplane_wall_1
+	if backplane_wall_2.player == null:
+		return backplane_wall_2
 	return null
 
 
 func _get_matching_backplane_wall(player: Player) -> BackplaneWall:
-	match player:
-		backplane_wall_1.player:
-			return backplane_wall_1
-
-		backplane_wall_2.player:
-			return backplane_wall_2
-
+	if backplane_wall_1.player == player:
+		return backplane_wall_1
+	if backplane_wall_2.player == player:
+		return backplane_wall_2
 	return null
 
 
 func _get_available_paddle() -> Paddle:
-	match null:
-		paddle_1.player:
-			return paddle_1
-
-		paddle_2.player:
-			return paddle_2
-
+	if paddle_1.player == null:
+		return paddle_1
+	if paddle_2.player == null:
+		return paddle_2
 	return null
 
 
 func _get_matching_paddle(player: Player) -> Paddle:
-	match player:
-		paddle_1.player:
-			return paddle_1
-
-		paddle_2.player:
-			return paddle_2
-
+	if paddle_1.player == player:
+		return paddle_1
+	if paddle_2.player == player:
+		return paddle_2
 	return null
 
 
