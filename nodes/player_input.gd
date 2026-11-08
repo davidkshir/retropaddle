@@ -16,9 +16,9 @@ func _ready() -> void:
 		return
 
 	if OS.has_feature("ios"):
-		ar_view.Backend.ARKIT
+		ar_view.backend = ARView.Backend.ARKIT
 	else:
-		ar_view.Backend.ARCORE
+		ar_view.backend = ARView.Backend.ARCORE
 
 	var battlefield_scene: Node3D = RootScene.instance.get_node("ContentScene").get_child(0)
 	paddle = battlefield_scene.get_node("Paddle1")
