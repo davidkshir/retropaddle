@@ -44,6 +44,6 @@ func _player_removed(player: Player) -> void:
 		player.health.changed.disconnect(callable)
 
 
-func _player_health_changed(old_health: int, new_health: int, player: Player) -> void:
+func _player_health_changed(old_health: int, new_health: int, _player: Player) -> void:
 	if old_health > 0 and new_health < 1:
 		game_state = GameState.STATE_ENDED
