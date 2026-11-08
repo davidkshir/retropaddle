@@ -5,6 +5,8 @@ const SERVER_ID: int = 1
 
 var ar_position: Vector2 = Vector2.ZERO
 
+var backplane_wall: BackplaneWall
+
 var paddle: Paddle
 
 @onready var ar_view = $ARView
@@ -25,15 +27,14 @@ func _ready() -> void:
 	else:
 		ar_view.backend = ARView.Backend.ARCORE
 
-	var battlefield_scene: Node3D = RootScene.instance.get_node("ContentScene").get_child(0)
-	paddle = battlefield_scene.get_node("Paddle1")
+	backplane_wall = battlefield.backplane_wall_2 \
+			if battlefield.backplane_wall_1.player else battlefield.backplane_wall_1
 
-	if not paddle:
-		paddle = battlefield_scene.get_node("Paddle2")
-		battlefield.get_node("Backplane2").player(player)
+	paddle = battlefield.paddle_2 \
+			if battlefield.paddle_1.player else battlefield.paddle_1
 
+	backplane_wall.player = player
 	paddle.player = player
-	battlefield.get_node("Backplane1").player(player)
 
 
 func _physics_process(_delta: float) -> void:
