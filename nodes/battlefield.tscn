@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cads8xbmmbnom"]
 
 [ext_resource type="PackedScene" uid="uid://b7t02ejkpjcja" path="res://nodes/backplane_wall.tscn" id="1_2qtdm"]
+[ext_resource type="Script" uid="uid://bwccubv3gw3wo" path="res://nodes/battlefield.gd" id="1_ir3qr"]
 [ext_resource type="PackedScene" uid="uid://churypx3uhfns" path="res://nodes/barrier_walls.tscn" id="1_uiimn"]
 [ext_resource type="PackedScene" uid="uid://c4qgf3rrtvfpe" path="res://nodes/paddle.tscn" id="2_2qtdm"]
 
@@ -12,6 +13,7 @@ glow_intensity = 1.0
 glow_blend_mode = 2
 
 [node name="Battlefield" type="Node3D" unique_id=1339524449]
+script = ExtResource("1_ir3qr")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=732189698]
 environment = SubResource("Environment_vnuii")
