@@ -29,7 +29,7 @@ func add_player(id: int) -> Player:
 	)
 
 	var player: Player = PLAYER_SCENE.instantiate()
-	
+
 	player.id = id
 	player.name = _format_player_node_name(id)
 
