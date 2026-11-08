@@ -22,8 +22,8 @@ func _format_player_node_name(id: int) -> String:
 
 func add_player(id: int) -> Player:
 	assert(
-		has_player(id),
-		"bad argument #0 to 'LobbyManager.add_player' (peer id '%s' is already a player)",
+		not has_player(id),
+		"bad argument #0 to 'LobbyManager.add_player' (peer id '%s' is already a player)" % id,
 	)
 
 	var player = Player.new(id)
