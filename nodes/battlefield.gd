@@ -1,10 +1,10 @@
 class_name Battlefield
 extends Node3D
 
-@onready var backplaneWall1: BackplaneWall = $BackplaneWall1
+@onready var backplane_wall_1: BackplaneWall = $BackplaneWall1
 
-@onready var backplaneWall2: BackplaneWall = $BackplaneWall2
+@onready var backplane_wall_2: BackplaneWall = $BackplaneWall2
 
-@onready var paddle1: Paddle = $Paddle1
+@onready var paddle_1: Paddle = $Paddle1
 
-@onready var paddle2: Paddle = $Paddle2
+@onready var paddle_2: Paddle = $Paddle2
