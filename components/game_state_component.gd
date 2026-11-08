@@ -2,10 +2,6 @@ class_name GameStateComponent
 extends ObservableComponent
 
 enum GameState {
-	STATE_NONE,
-
-	STATE_COUNTDOWN,
-
 	STATE_PLAYING,
 
 	STATE_ENDED,
@@ -18,5 +14,5 @@ enum GameState {
 		_value = value
 
 
-func _init(initial_value: GameState = GameState.STATE_NONE) -> void:
+func _init(initial_value: GameState = GameState.STATE_PLAYING) -> void:
 	super(initial_value)
