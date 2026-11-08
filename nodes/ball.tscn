@@ -9,6 +9,7 @@ bounce = 1.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u7scg"]
 shading_mode = 0
 disable_ambient_light = true
+albedo_color = Color(0.7058867, 0.7058868, 0.7058867, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ooxkd"]
 material = SubResource("StandardMaterial3D_u7scg")
