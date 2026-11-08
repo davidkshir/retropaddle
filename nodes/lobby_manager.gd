@@ -7,10 +7,13 @@ signal player_removed(player: Player)
 
 var players: Array[Player]:
 	get:
-		return get_children().filter(
-			func(node):
-				return node is Player,
-		)
+		var list: Array[Player] = []
+
+		for child in get_children():
+			if child is Player:
+				list.append(child)
+
+		return list
 
 
 func _format_player_node_name(id: int) -> String:
