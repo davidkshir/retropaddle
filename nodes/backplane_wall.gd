@@ -8,10 +8,6 @@ signal ball_hit(wall: BackplaneWall)
 
 @export var target_node: Node3D
 
-@onready var mesh_instance_3d: MeshInstance3D = %MeshInstance3D
-
-var _player: Player = null
-
 var player: Player:
 	get:
 		return _player
@@ -21,9 +17,9 @@ var player: Player:
 
 		_player_changed(old_player, value)
 
+var _player: Player = null
 
-func _player_changed(_old_player: Player, _new_player: Player) -> void:
-	pass
+@onready var mesh_instance_3d: MeshInstance3D = %MeshInstance3D
 
 
 func _process(_delta: float) -> void:
@@ -48,6 +44,10 @@ func _process(_delta: float) -> void:
 	)
 
 	shader_material.set_shader_parameter("mask_origin", closest_point)
+
+
+func _player_changed(_old_player: Player, _new_player: Player) -> void:
+	pass
 
 
 func _on_collision_area_body_entered(body: Node3D) -> void:
