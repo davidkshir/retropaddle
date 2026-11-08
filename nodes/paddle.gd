@@ -1,5 +1,6 @@
 class_name Paddle
 extends Node3D
+const WALL_HALF_EXTENTS: Vector2 = Vector2(1.0, 1.0) # 2m x 2m backplane wall centered at half
 
 var _player: Player = null
 
@@ -14,8 +15,7 @@ var player: Player:
 
 var ar_position: Vector2
 
-@onready var animatable_body_3d: AnimatableBody3D = %AnimatableBody3D
-
+@onready var _initial_position: Vector3 = position
 @onready var camera_3d: Camera3D = %Camera3D
 
 
@@ -30,4 +30,21 @@ func _player_changed(_old_player: Player, new_player: Player) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	pass # do movement w/ `animatable_body_3d`
+	if not multiplayer.is_server() or player == null:
+		return
+
+	var tracking_delta = player.tracking_delta.tracking_delta
+
+	var target_x = clampf(
+		_initial_position.x + (tracking_delta.x * WALL_HALF_EXTENTS.x),
+		_initial_position.x - WALL_HALF_EXTENTS.x,
+		_initial_position.x + WALL_HALF_EXTENTS.x,
+	)
+
+	var target_y = clampf(
+		_initial_position.y + (tracking_delta.y * WALL_HALF_EXTENTS.y),
+		_initial_position.y - WALL_HALF_EXTENTS.y,
+		_initial_position.y + WALL_HALF_EXTENTS.y,
+	)
+
+	position = Vector3(target_x, target_y, _initial_position.z)
