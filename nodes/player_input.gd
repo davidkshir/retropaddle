@@ -16,7 +16,7 @@ func _ready() -> void:
 
 	if OS.has_feature("ios"):
 		ar_view.backend = ARView.Backend.ARKIT
-	else:
+	elif OS.has_feature("android"):
 		ar_view.backend = ARView.Backend.ARCORE
 
 
