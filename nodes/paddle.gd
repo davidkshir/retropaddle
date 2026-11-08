@@ -46,7 +46,7 @@ func _physics_process(_delta: float) -> void:
 	var local_right: Vector3 = _initial_basis.x.normalized()
 	var local_up: Vector3 = _initial_basis.y.normalized()
 
-	position = _initial_position - (local_right * local_x) + (local_up * local_y)
+	position = _initial_position + (local_right * local_x) + (local_up * local_y)
 
 
 @rpc("authority", "call_local", "reliable")
