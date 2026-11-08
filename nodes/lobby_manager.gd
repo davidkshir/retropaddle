@@ -37,7 +37,7 @@ func add_player(id: int) -> Player:
 func get_player_from_id(id: int) -> Player:
 	var node_name = _format_player_node_name(id)
 
-	return get_node(node_name)
+	return get_node_or_null(node_name) as Player
 
 
 func has_player(id: int) -> bool:
