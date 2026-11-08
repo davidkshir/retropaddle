@@ -10,7 +10,6 @@ script = ExtResource("1_u63mc")
 
 [node name="Health" parent="." unique_id=7661095 instance=ExtResource("2_me0cc")]
 unique_name_in_owner = true
-health = 3
 
 [node name="PlayerInput" parent="." unique_id=1405639827 instance=ExtResource("5_7lbay")]
 unique_name_in_owner = true
