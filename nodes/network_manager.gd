@@ -41,6 +41,15 @@ func manager_ready() -> void:
 		multiplayer.multiplayer_peer = peer
 
 
+func start_game() -> void:
+	if not multiplayer.is_server():
+		print("NOT THE SERVER")
+		return
+
+	_load_battlefield.rpc()
+	RootScene.instance.transition_to("res://scenes/battlefield_scene.tscn")
+
+
 func _on_peer_connected(id: int) -> void:
 	RootScene.instance.lobby_manager.add_player(id)
 	print("Player client id '%s' id" % id)
@@ -53,15 +62,6 @@ func _on_peer_disconnected(id: int) -> void:
 
 	RootScene.instance.lobby_manager.remove_player(id)
 	print("Player client id '%s' connected" % id)
-
-
-func start_game() -> void:
-	if not multiplayer.is_server():
-		print("NOT THE SERVER")
-		return
-
-	_load_battlefield.rpc()
-	RootScene.instance.transition_to("res://scenes/battlefield_scene.tscn")
 
 
 @rpc("authority", "call_remote", "reliable")
