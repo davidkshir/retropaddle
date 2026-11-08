@@ -55,3 +55,4 @@ func remove_player(id: int) -> void:
 	)
 
 	player_removed.emit(player)
+	player.queue_free()
