@@ -13,8 +13,8 @@ var players: Array[Player]:
 		)
 
 
-func _format_player_node_name(id: int) -> StringName:
-	return &"Player%s" % id
+func _format_player_node_name(id: int) -> String:
+	return "Player%s" % id
 
 
 func add_player(id: int) -> Player:
