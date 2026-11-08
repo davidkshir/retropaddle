@@ -33,6 +33,8 @@ func add_player(id: int) -> Player:
 	player.id = id
 	player.name = _format_player_node_name(id)
 
+	player.set_multiplayer_authority(id)
+
 	add_child(player)
 	player_added.emit(player)
 
