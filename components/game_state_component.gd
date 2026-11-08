@@ -13,6 +13,9 @@ enum GameState {
 	set(value):
 		_value = value
 
+		if value == GameState.STATE_ENDED:
+			RootScene.instance.transition_to("res://scenes/lobby_scene.tscn")
+
 
 func _init(initial_value: GameState = GameState.STATE_PLAYING) -> void:
 	super(initial_value)
