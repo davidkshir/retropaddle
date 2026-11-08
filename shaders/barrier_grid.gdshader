@@ -10,6 +10,11 @@ group_uniforms Shimmer;
 uniform vec3 shimmer_origin = vec3(0.0);
 uniform float shimmer_width = 1.5;
 
+group_uniforms Fringing;
+uniform float fringe_strength : hint_range(0.0, 0.2) = 0.03;
+uniform float fringe_frequency = 15.0;
+uniform float fringe_speed = 3.0;
+
 varying vec3 local_position;
 varying vec3 local_normal;
 
@@ -30,7 +35,8 @@ void fragment() {
 
 	float is_line = 1.0 - min(lines.x, lines.y);
 
-	float distance_from_center = abs(local_position.z - shimmer_origin.z);
+	float fringe = sin(dot(local_position, vec3(12.0, 14.0, 12.0)) + TIME * fringe_speed) * fringe_strength;
+	float distance_from_center = abs(local_position.z - shimmer_origin.z) + fringe;
 	float shimmer = smoothstep(shimmer_width, 0.0, distance_from_center);
 
 	ALBEDO = line_color.rgb;
