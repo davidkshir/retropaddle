@@ -7,8 +7,7 @@ uniform vec4 line_color : source_color = vec4(0.212, 0.345, 0.537, 1.0);
 uniform float line_thickness : hint_range(0.001, 0.2) = 0.05;
 
 group_uniforms Shimmer;
-uniform float shimmer_period = 10.0;
-uniform float shimmer_speed = 3.0;
+uniform vec3 shimmer_origin = vec3(0.0);
 uniform float shimmer_width = 1.5;
 
 varying vec3 local_position;
@@ -31,8 +30,7 @@ void fragment() {
 
 	float is_line = 1.0 - min(lines.x, lines.y);
 
-	float cycle = mod(local_position.z - TIME * shimmer_speed, shimmer_period);
-	float distance_from_center = abs(cycle - shimmer_period * 0.5);
+	float distance_from_center = abs(local_position.z - shimmer_origin.z);
 	float shimmer = smoothstep(shimmer_width, 0.0, distance_from_center);
 
 	ALBEDO = line_color.rgb;

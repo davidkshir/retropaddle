@@ -1,6 +1,6 @@
 @tool
 class_name BackplaneWall
-extends Node3D
+extends StaticBody3D
 
 signal ball_hit(wall: BackplaneWall)
 

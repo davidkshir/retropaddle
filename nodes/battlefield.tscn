@@ -19,7 +19,8 @@ script = ExtResource("1_ir3qr")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=732189698]
 environment = SubResource("Environment_vnuii")
 
-[node name="BarrierWalls" parent="." unique_id=1701708914 instance=ExtResource("1_uiimn")]
+[node name="BarrierWalls" parent="." unique_id=1701708914 node_paths=PackedStringArray("target_node") instance=ExtResource("1_uiimn")]
+target_node = NodePath("../Ball")
 
 [node name="Paddle1" parent="." unique_id=9845050 instance=ExtResource("2_2qtdm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.95)
