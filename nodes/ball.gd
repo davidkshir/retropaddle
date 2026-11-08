@@ -1,7 +1,7 @@
 class_name Ball
 extends RigidBody3D
 
-@export var speed: float = 2.0
+@export var speed: float = 1.0
 
 @export var spin_strength: float = 4.0
 
