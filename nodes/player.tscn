@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://oyjq66vwmfr1" path="res://nodes/player.gd" id="1_u63mc"]
 [ext_resource type="PackedScene" uid="uid://frs0k4yks3vr" path="res://components/health_component.tscn" id="2_me0cc"]
-[ext_resource type="PackedScene" uid="uid://dlde46ugnd673" path="res://components/score_component.tscn" id="3_hqdnm"]
-[ext_resource type="PackedScene" uid="uid://bimefnrwovkdt" path="res://nodes/player_input.tscn" id="5_7lbay"]
+[ext_resource type="PackedScene" uid="uid://dk3h3u5wjj54e" path="res://nodes/player_input.tscn" id="5_7lbay"]
 [ext_resource type="PackedScene" uid="uid://eiobu70jvmj" path="res://components/tracking_delta_component.tscn" id="6_2wrp4"]
 
 [node name="Player" type="Node" unique_id=1569561123]
