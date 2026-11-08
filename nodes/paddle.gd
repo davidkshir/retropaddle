@@ -1,5 +1,6 @@
 class_name Paddle
-extends Node3D
+extends AnimatableBody3D
+
 const WALL_HALF_EXTENTS: Vector2 = Vector2(1.0, 1.0) # 2m x 2m backplane wall centered at half
 
 var _player: Player = null
