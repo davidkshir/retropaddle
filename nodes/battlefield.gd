@@ -98,3 +98,6 @@ func _ready() -> void:
 
 	RootScene.instance.lobby_manager.player_added.connect(_player_added)
 	RootScene.instance.lobby_manager.player_removed.connect(_player_removed)
+
+	for player in RootScene.instance.lobby_manager.players:
+		_player_added(player)
