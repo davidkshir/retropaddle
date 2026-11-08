@@ -9,14 +9,87 @@ extends Node3D
 
 @onready var paddle_2: Paddle = $Paddle2
 
-#backplane_wall = battlefield.backplane_wall_2 \
-#if battlefield.backplane_wall_1.player else battlefield.backplane_wall_1
-#
-#paddle = battlefield.paddle_2 \
-#if battlefield.paddle_1.player else battlefield.paddle_1
-#
-#backplane_wall.player = player
-#paddle.player = player
+
+func _get_available_backplane_wall() -> BackplaneWall:
+	match null:
+		backplane_wall_1.player:
+			return backplane_wall_1
+
+		backplane_wall_2.player:
+			return backplane_wall_2
+
+	return null
+
+
+func _get_matching_backplane_wall(player: Player) -> BackplaneWall:
+	match player:
+		backplane_wall_1.player:
+			return backplane_wall_1
+
+		backplane_wall_2.player:
+			return backplane_wall_2
+
+	return null
+
+
+func _get_available_paddle() -> Paddle:
+	match null:
+		paddle_1.player:
+			return paddle_1
+
+		paddle_2.player:
+			return paddle_2
+
+	return null
+
+
+func _get_matching_paddle(player: Player) -> Paddle:
+	match player:
+		paddle_1.player:
+			return paddle_1
+
+		paddle_2.player:
+			return paddle_2
+
+	return null
+
+
+func _player_added(player: Player) -> void:
+	var backplane_wall = _get_available_backplane_wall()
+	var paddle = _get_available_paddle()
+
+	assert(
+		backplane_wall == null,
+		"bad dispatch to 'Battlefield._player_added' (no available 'BackplaneWall')",
+	)
+
+	assert(paddle == null, "bad dispatch to 'Battlefield._player_added' (no available 'Paddle')")
+
+	backplane_wall.player = player
+	paddle.player = player
+
+
+func _player_removed(player: Player) -> void:
+	var backplane_wall = _get_matching_backplane_wall(player)
+	var paddle = _get_matching_paddle(player)
+
+	assert(
+		backplane_wall == null,
+		"bad dispatch to 'Battlefield._player_removed' (no assigned 'BackplaneWall')",
+	)
+
+	assert(paddle == null, "bad dispatch to 'Battlefield._player_removed' (no assigned 'Paddle')")
+
+	backplane_wall.player = null
+	paddle.player = null
+
+
+func _exit_tree() -> void:
+	if not multiplayer.is_server():
+		return
+
+	RootScene.instance.lobby_manager.player_added.disconnect(_player_added)
+	RootScene.instance.lobby_manager.player_removed.disconnect(_player_removed)
 
 
 func _ready() -> void:
@@ -25,11 +98,3 @@ func _ready() -> void:
 
 	RootScene.instance.lobby_manager.player_added.connect(_player_added)
 	RootScene.instance.lobby_manager.player_removed.connect(_player_removed)
-
-
-func _player_added(player: Player) -> void:
-	pass
-
-
-func _player_removed(player: Player) -> void:
-	pass
