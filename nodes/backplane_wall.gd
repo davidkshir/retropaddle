@@ -54,8 +54,7 @@ func _on_collision_area_body_entered(body: Node3D) -> void:
 	if not multiplayer.is_server():
 		return
 
-	# Filter for ball (can change for more specific condition when ball is created)
-	if body is not RigidBody3D:
+	if body is not Ball:
 		return
 
 	if opposing_wall == null:
