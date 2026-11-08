@@ -2,7 +2,7 @@ class_name NetworkManager
 extends Node
 
 # CHANGE TO SERVER'S TAILSCALE IP BEFORE USE
-const SERVER_IP_ADDRESS: String = "100.118.183.52"
+const SERVER_IP_ADDRESS: String = "100.105.71.113"
 
 var ready_players: Dictionary = { }
 var match_starting: bool = false
@@ -51,7 +51,7 @@ func _on_peer_connected(id: int) -> void:
 func _on_peer_disconnected(id: int) -> void:
 	ready_players.erase(id)
 	if not RootScene.instance.lobby_manager.has_player(id):
-		print("Non-player client id %s disconnected" % id)
+		print("Non-player client id '%s' disconnected" % id)
 		return
 
 	RootScene.instance.lobby_manager.remove_player(id)
