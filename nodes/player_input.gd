@@ -1,8 +1,6 @@
 class_name PlayerInput
 extends Node
 
-const SERVER_ID: int = 1
-
 var ar_position: Vector2 = Vector2.ZERO
 
 var backplane_wall: BackplaneWall
