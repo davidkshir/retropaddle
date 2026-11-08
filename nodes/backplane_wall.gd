@@ -74,6 +74,5 @@ func _on_collision_area_body_entered(body: Node3D) -> void:
 		return
 
 	losing_player.health.health -= 1
-	scoring_player.score.score += 1
 
 	ball_hit.emit(self)
