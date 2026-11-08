@@ -66,7 +66,6 @@ func send_input_delta(tracking_delta: Vector2) -> void:
 		return
 
 	player.tracking_delta.tracking_delta = tracking_delta
-	print("Tracking delta:", tracking_delta)
 
 
 func _on_first_packet(_packet: ARFramePacket) -> void:
