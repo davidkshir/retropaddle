@@ -1,6 +1,8 @@
 class_name LobbyManager
 extends Node
 
+const PLAYER_SCENE = preload("res://nodes/player.tscn")
+
 signal player_added(player: Player)
 
 signal player_removed(player: Player)
@@ -26,8 +28,8 @@ func add_player(id: int) -> Player:
 		"bad argument #0 to 'LobbyManager.add_player' (peer id '%s' is already a player)" % id,
 	)
 
-	var player = Player.new(id)
-
+	var player: Player = PLAYER_SCENE.instantiate()
+	
 	player.id = id
 	player.name = _format_player_node_name(id)
 
