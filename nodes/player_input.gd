@@ -1,14 +1,19 @@
 class_name PlayerInput
 extends Node
 
-@onready var ar_view = $ARView
-@onready var battlefield = $battlefield
-@onready var player: Player = get_parent()
 const SERVER_ID: int = 1
 
 var ar_position: Vector2 = Vector2.ZERO
 
 var paddle: Paddle
+
+@onready var ar_view = $ARView
+
+@onready var battlefield: Battlefield = RootScene.instance.content_scene.get_child(0).get_node(
+	"Battlefield"
+)
+
+@onready var player: Player = get_parent()
 
 
 func _ready() -> void:
