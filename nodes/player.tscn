@@ -6,8 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bxwfr40nlw6d5" path="res://components/is_ready_component.tscn" id="4_hqdnm"]
 [ext_resource type="PackedScene" uid="uid://bimefnrwovkdt" path="res://nodes/player_input.tscn" id="5_7lbay"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7lbay"]
-
 [node name="Player" type="Node" unique_id=1569561123]
 script = ExtResource("1_u63mc")
 
@@ -23,6 +21,3 @@ unique_name_in_owner = true
 
 [node name="Score" parent="." unique_id=468225487 instance=ExtResource("3_hqdnm")]
 unique_name_in_owner = true
-
-[node name="PlayerMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=962796361]
-replication_config = SubResource("SceneReplicationConfig_7lbay")

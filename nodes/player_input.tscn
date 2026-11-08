@@ -7,3 +7,4 @@
 script = ExtResource("1_m8xs6")
 
 [node name="ARView" parent="." unique_id=1008093009 instance=ExtResource("2_y4jw2")]
+visible = false
